@@ -5,7 +5,6 @@
  * Date: 17.02.15
  * Time: 18:25
  */
-namespace boards;
 
 interface I_Board {
 
