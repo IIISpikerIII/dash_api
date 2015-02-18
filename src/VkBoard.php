@@ -14,8 +14,8 @@ class VkBoard extends Board {
     private $backUrl;
 
     private $auth = array(
-        'secret_key'    =>  'U0RpXo9X5xMPnkhEkRJe',
-        'app_id'        =>  '3688869',
+        'secret_key'    =>  'ХХХХХХХХХХХХХХХХХХХХХХХ',
+        'app_id'        =>  'ХХХХХХХ',
     );
 
     function __construct(){

@@ -18,6 +18,7 @@ abstract class Board implements I_Board {
         'method'    =>  'GET',
         'params'    =>  null,
         'auth'      =>  false,
+        'link'      =>  null,
     ];
 
     /**
@@ -29,6 +30,35 @@ abstract class Board implements I_Board {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
+    }
+
+    /**
+     * set config params
+     * @param $conf
+     * @param $val
+     * @return bool
+     */
+    public function setConf($conf, $val) {
+
+        if(isset($this->config[$conf]))
+            $this->config[$conf] = $val;
+        else
+            return false;
+
+        return true;
+    }
+
+    /**
+     * get params from config
+     * @param $conf
+     * @return bool
+     */
+    public function getConf($conf) {
+
+        if(isset($this->config[$conf]))
+            return $this->config[$conf];
+        else
+            return false;
     }
 
     /**
