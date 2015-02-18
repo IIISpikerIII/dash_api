@@ -23,17 +23,25 @@ class VkBoard extends Board {
 
         $this->config['id'] = 'vk';
         $this->config['link']           = 'https://api.vk.com/method/photos.search';
-        $this->config['params']         = 'q=moskow&v=5.28&start_time=%d&end_time=%d&access_token=%s';
+        $this->config['params']         = 'q=cats&v=5.28&start_time=%d&end_time=%d&access_token=%s';
         $this->config['auth_url']       = 'https://oauth.vk.com/authorize?client_id=%s&scope=%s&redirect_uri=%s&response_type=code&v=%s&state="SESSION_STATE" ';
         $this->config['access_url']     = 'https://oauth.vk.com/access_token?client_id=%s&client_secret=%s&code=%s&redirect_uri=%s';
-        $this->config['scope']          =  'friends,video,offline';
-        $this->config['auth']           =   $this->auth;
+        $this->config['scope']          = 'friends,video,offline';
+        $this->config['auth']           =  $this->auth;
     }
 
+    /**
+     * Parse data in format
+     * @param $data
+     * @return array
+     */
     protected function parseData($data) {
 
         $data = json_decode($data, true);
         $rezult = array();
+
+        if(!isset($data['response']['items']) || sizeof($data['response']['items']) == 0)
+            return array($this->config['id'] = null);
 
         foreach($data['response']['items'] as $val)
             $rezult[$val['date']] = isset($val['photo_75'])? $val['photo_75']: null;
@@ -50,6 +58,10 @@ class VkBoard extends Board {
         }
     }
 
+    /**
+     * Get Request Token
+     * @throws BoardException
+     */
     protected function getRequestToken(){
 
         $url = $this->getRequestTokenUrl();
@@ -59,6 +71,10 @@ class VkBoard extends Board {
         exit;
     }
 
+    /**
+     * Get Access token from param code
+     * @throws BoardException
+     */
     protected function getAccessToken(){
 
         if(!isset($_GET['code'])) throw new BoardException(__CLASS__.' Not find "code"');

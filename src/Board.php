@@ -39,7 +39,7 @@ abstract class Board implements I_Board {
      */
     protected function requestUrl($arg = array(), $atr = 'link') {
 
-        return vsprintf($this->config['link'], $arg);
+        return vsprintf($this->config[$atr], $arg);
     }
 
     /**
