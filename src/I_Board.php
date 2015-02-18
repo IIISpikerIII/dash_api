@@ -6,6 +6,7 @@
  * Time: 18:25
  */
 
+require_once (__DIR__.'/BoardException.php');
 interface I_Board {
 
     /**
